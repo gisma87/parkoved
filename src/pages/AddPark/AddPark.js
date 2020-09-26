@@ -5,7 +5,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from 'react-images-upload';
-import { YMaps, Map } from 'react-yandex-maps';
+import { YMaps, Map, Placemark } from 'react-yandex-maps';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -64,6 +64,8 @@ function AddPark({ history }) {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [error, setError] = useState('');
+  const [lon, setLon] = useState(55.684758);
+  const [lat, setLat] = useState(37.738521);
   
 
   const onDrop = (picture) => {
@@ -78,7 +80,11 @@ function AddPark({ history }) {
         photos: await Promise.all(pictures.map(async (picture, i) => ({
           title: `image_${i}`,
           base64: await getBase64(picture)
-        })))
+        }))),
+        place: {
+          longitude: lon,
+          latitude: lat
+        }
       });
   
       if (response.park)
@@ -114,7 +120,17 @@ function AddPark({ history }) {
               <div className="yandex-map">
                 <p>Укажите местоположение вашей карты на точке</p>
                 <br />
-                <Map defaultState={{ center: [55.75, 37.57], zoom: 9 }} style={{ width: '100%', height: 312}} />
+                <Map 
+                  instanceRef={inst => inst && inst.events.add('click', (e) => {
+                    const coordinates = e.get('coords');
+                    setLon(coordinates[0])
+                    setLat(coordinates[1])
+                  })}
+                  defaultState={{ center: [55.75, 37.57], zoom: 9 }} 
+                  style={{ width: '100%', height: 312}}
+                >
+                  <Placemark geometry={[lon, lat]} />
+                </Map>
               </div>
             </YMaps>
             <br />
