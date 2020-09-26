@@ -38,7 +38,7 @@ const getBase64 = async (file) => {
 
 const sendPost = async (body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
-  
+
   return await fetch('http://localhost:3000/api/parks', {
     method: 'POST',
     headers: {
@@ -52,9 +52,9 @@ const sendPost = async (body) => {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
-  .catch((err) => {
-    return Promise.reject(err);
-  });
+    .catch((err) => {
+      return Promise.reject(err);
+    });
 }
 
 function AddPark({ history }) {
@@ -108,7 +108,7 @@ function AddPark({ history }) {
         <h2>Добавьте свой парк</h2>
         <p>Заполните все поля и нажмите продолжить. Система создаст страницу вашего<br />парка и вы сможете добавить объекты и события.</p>
         <br />
-        <Paper align="center"> 
+        <Paper align="center">
           <h3>Общая информация</h3>
           <form className={classes.root} noValidate autoComplete="off">
             <TextField id="standard-basic" label="Название" value={title} onChange={(e) => setTitle(e.target.value)} />
@@ -148,11 +148,10 @@ function AddPark({ history }) {
             {!!error && <p className="error-text">{error}</p>}
           </form>
         </Paper>
-        
+
       </div>
     </div>
   )
-
 }
 
 export default AddPark

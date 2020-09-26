@@ -8,7 +8,7 @@ function Card({title, img}) {
       <div className='Card__contentContainer'>
         <p className='Card__subtitle'>{title}</p>
         <div className='Card__buttonContainer'>
-          <button>Работает</button>
+          <div>Работает</div>
         </div>
       </div>
 
