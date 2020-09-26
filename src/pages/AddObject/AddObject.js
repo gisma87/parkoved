@@ -328,7 +328,7 @@ function AddObject({ history }) {
               <>
                 <br />
                 <TextField id="standard-1" label="Правило/ограничение" value={rule} onChange={(e) => {
-                  setRules(rules.map((r, j) => i == j ? e.target.value : r))
+                  setRules(rules.map((r, j) => i === j ? e.target.value : r))
                 }} />
               </>
             ))}
@@ -344,10 +344,10 @@ function AddObject({ history }) {
             {!!payments && payments.map((payment, i) => (
               <div className="row">
                 <TextField id="standard-basic2" label="Название услуги" value={payment.title} onChange={(e) => {
-                  setPayments(payments.map((r, j) => i == j ? { ...r, title: e.target.value } : r))
+                  setPayments(payments.map((r, j) => i === j ? { ...r, title: e.target.value } : r))
                 }} />
                 <TextField id="standard-basic3" label="Цена за услугу" value={payment.price} onChange={(e) => {
-                  setPayments(payments.map((r, j) => i == j ? { ...r, price: e.target.value } : r))
+                  setPayments(payments.map((r, j) => i === j ? { ...r, price: e.target.value } : r))
                 }} />
               </div>
             ))}
