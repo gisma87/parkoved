@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import Desktop1 from "./pages/Desktop1/Desktop1";
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
+
+import ParkObjects from "./pages/ParkObjects/ParkObjects";
 import './App.css'
 
 function App() {
@@ -67,7 +69,12 @@ function App() {
 
   return (
     <div className='App'>
-      <Desktop1/>
+      <BrowserRouter basename="/">
+        <Switch>
+          <Route path="/park-objects" component={ParkObjects} />
+          <Route path="/add-park" component={ParkObjects} />
+        </Switch>
+      </BrowserRouter>
     </div>
   )
 }

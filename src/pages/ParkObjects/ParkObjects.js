@@ -1,5 +1,5 @@
 import React from "react";
-import './Desktop1.scss'
+import './ParkObjects.scss'
 import Header from "../../components/Header/Header";
 import SideBar from "../../components/SideBar/SideBar";
 import CardList from "../../components/CardList/CardList";
