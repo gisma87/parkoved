@@ -4,7 +4,6 @@ import './ParkObjects.scss'
 import Header from "../../components/Header/Header";
 import SideBar from "../../components/SideBar/SideBar";
 import CardList from "../../components/CardList/CardList";
-import {fp1, fp2, fp3, fp4, fp5, img1, img2, img3, img4, fz1, fz2, fz3} from "../../images/images.js";
 
 const sendObjectTypesGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');

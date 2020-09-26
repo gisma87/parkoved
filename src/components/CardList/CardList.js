@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import './CardList.scss';
 import Card from "../Card/Card";
 

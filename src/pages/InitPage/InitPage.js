@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 
 function InitPage({ history }) {
   const apiPost = async () => {
@@ -33,7 +33,7 @@ function InitPage({ history }) {
         history.push('/add-park');
       }
     })();
-  }, []);
+  }, [history]);
 
   return (
     <div />

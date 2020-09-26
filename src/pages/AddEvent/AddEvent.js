@@ -6,9 +6,6 @@ import Paper from "../../components/Paper/Paper";
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from 'react-images-upload';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
@@ -300,7 +297,7 @@ function AddEvent({ history }) {
             </YMaps>
             <br />
             <Button variant="outlined" color="primary" onClick={onClick}>
-              {id ? 'Редактировать объект' : 'Добавить объект'}
+              {id ? 'Редактировать событие' : 'Добавить событие'}
             </Button>
             {!!error && <p className="error-text">{error}</p>}
           </form>

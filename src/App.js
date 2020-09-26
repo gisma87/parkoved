@@ -1,11 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import ParkObjects from "./pages/ParkObjects/ParkObjects";
 import ParkEvents from "./pages/ParkEvents/ParkEvents";
+import News from "./pages/News/News";
 import AddPark from "./pages/AddPark/AddPark";
 import AddObject from "./pages/AddObject/AddObject";
 import AddEvent from "./pages/AddEvent/AddEvent";
+import AddNews from "./pages/AddNews/AddNews";
 import InitPage from "./pages/InitPage/InitPage";
 import './App.css'
 
@@ -51,6 +53,10 @@ function App() {
           <Route path="/park-events" component={ParkEvents} />
           <Route path="/add-event" component={AddEvent} />
           <Route path="/edit-event/:id" component={AddEvent} />
+
+          <Route path="/news" component={News} />
+          <Route path="/add-news" component={AddNews} />
+          <Route path="/edit-news/:id" component={AddNews} />
 
           <Route path="/" component={InitPage} />
         </Switch>

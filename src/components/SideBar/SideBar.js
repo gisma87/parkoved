@@ -1,13 +1,11 @@
 import React, { useEffect, useState } from "react"
-import {NavLink, Route} from 'react-router-dom'
+import {NavLink} from 'react-router-dom'
 import './SideBar.scss'
 import SvgLogo1 from "../Images/SvgLogo1";
 import SvgMain from "../Images/SvgMain";
 import SvgObjectPark from "../Images/SvgObjectPark";
 import SvgStatistics from "../Images/SvgStatistics";
-import SvgContacts from "../Images/SvgContacts";
 import SvgChat from "../Images/SvgChat";
-import SvgDeals from "../Images/SvgDeals";
 import SvgSettings from "../Images/SvgSettings";
 
 const apiParkGet = async () => {

@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
-import './ParkEvents.scss'
+import './News.scss'
 import Header from "../../components/Header/Header";
 import SideBar from "../../components/SideBar/SideBar";
-import CardEventList from "../../components/CardEventList/CardEventList";
+import CardNewsList from "../../components/CardNewsList/CardNewsList";
 
-const sendEventsGet = async (id) => {
+const sendNewsGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/park-events`, {
+  return await fetch(`http://localhost:3000/api/news`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -24,30 +24,28 @@ const sendEventsGet = async (id) => {
   });
 }
 
-function ParkEvents() {
-  const [events, setEvents] = useState([]);
+function News() {
+  const [news, setNews] = useState([]);
 
   useEffect(() => {
     (async () => {
-      const response = await sendEventsGet();
+      const response = await sendNewsGet();
 
-      if (response.parkEvents)
-        setEvents(response.parkEvents)
+      if (response.news)
+        setNews(response.news)
     })()
   }, [])
 
-console.log(events)
-
   return (
-    <div className='ParkEvents'>
+    <div className='News'>
       <Header/>
       <SideBar/>
-      <div className='ParkEvents__main'>
-        <CardEventList title={'События'} cards={events}/>
+      <div className='News__main'>
+        <CardNewsList title={'Новости'} cards={news}/>
       </div>
     </div>
   )
 
 }
 
-export default ParkEvents
+export default News
