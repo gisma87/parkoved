@@ -6,7 +6,7 @@ class Header extends React.Component {
     return (
       <div className='Header'>
         <p className='Header__logo'>PARKOVED</p>
-        <button className='Header__button' >Добавить объект</button>
+        <a href="/add-object" className='Header__button' >Добавить объект</a>
       </div>
     )
   }

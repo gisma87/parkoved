@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './AddObject.scss'
 import clsx from 'clsx';
 import Paper from "../../components/Paper/Paper";
@@ -16,6 +16,10 @@ import InputAdornment from '@material-ui/core/InputAdornment';
 import FormHelperText from '@material-ui/core/FormHelperText';
 import Header from "../../components/Header/Header";
 import SideBar from "../../components/SideBar/SideBar";
+
+import {
+  useParams
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -67,7 +71,83 @@ const sendObjectPost = async (body) => {
   });
 }
 
+const sendObjectPut = async (id, body) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`http://localhost:3000/api/park-objects/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
+
+const sendObjectGet = async (id) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`http://localhost:3000/api/park-objects/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
 function AddObject({ history }) {
+  const { id } = useParams();
+
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const response = await sendObjectGet(id);
+
+        if (response.parkObject) {
+          setTitle(response.parkObject.title);
+          setDescription(response.parkObject.description);
+          if (response.parkObject.place && response.parkObject.place.longitude)
+            setLon(response.parkObject.place.longitude);
+          if (response.parkObject.place && response.parkObject.place.latitude)
+            setLat(response.parkObject.place.latitude);
+
+          setType(response.parkObject.type)
+          setStatus(response.parkObject.status)
+
+          if (response.parkObject.ageRestrictions && response.parkObject.ageRestrictions.min)
+            setAge(response.parkObject.ageRestrictions.min);
+
+          if (response.parkObject.weightRestrictions && response.parkObject.weightRestrictions.max)
+            setWeight(response.parkObject.weightRestrictions.max);
+
+          if (response.parkObject.heightRestrictions && response.parkObject.heightRestrictions.min)
+            setHeight(response.parkObject.heightRestrictions.min);
+
+          if (response.parkObject.rules && response.parkObject.rules.length > 0)
+            setRules(response.parkObject.rules.map(rule => rule.title))
+        }
+      }
+    })();
+  }, [id])
+
   const classes = useStyles();
 
   const [pictures, setPictures] = useState([]);
@@ -86,7 +166,9 @@ function AddObject({ history }) {
 
   const onClick = async () => {
     try {
-      const response = await sendObjectPost({
+      let response;
+
+      const data = {
         park: window.localStorage.getItem('PARK'),
         title,
         description,
@@ -104,9 +186,16 @@ function AddObject({ history }) {
           latitude: lat
         },
         rules: rules.map(rule => ({ title: rule })),
-      });
+      }
+
+      if (id) {
+        response = await sendObjectPut(id, data);
+      }
+      else {
+        response = await sendObjectPost(data);
+      }
   
-      if (response.park)
+      if (response.parkObject)
         history.push('/park-objects');
     } catch (error) {
       setError(error)
@@ -289,7 +378,7 @@ function AddObject({ history }) {
             </YMaps>
             <br />
             <Button variant="outlined" color="primary" onClick={onClick}>
-              Добавить объект
+              {id ? 'Редактировать объект' : 'Добавить объект'}
             </Button>
             {!!error && <p className="error-text">{error}</p>}
           </form>

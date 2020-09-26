@@ -45,6 +45,7 @@ function App() {
           <Route path="/park-objects" component={ParkObjects} />
           <Route path="/add-park" component={AddPark} />
           <Route path="/add-object" component={AddObject} />
+          <Route path="/edit-object/:id" component={AddObject} />
           <Route path="/" component={InitPage} />
         </Switch>
       </BrowserRouter>
