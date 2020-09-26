@@ -57,25 +57,27 @@ class SideBar extends React.Component {
                 <p className='over SideBar__description'>Статистика</p>
               </NavLink>
             </li>
-            <li className='SideBar__item'>
+            <li>
+              <NavLink className='SideBar__item' to="/shares" activeStyle={{color: '#109CF1'}}>
               <SvgContacts color={(window.location.pathname === '/shares') ? '#109CF1' : null}
                            style={{'width': '20px', 'height': '20px'}}/>
-              <NavLink className='over SideBar__description' to="/shares" activeStyle={{color: '#109CF1'}}>
-                Акции
+
+                <p className='over SideBar__description'>Акции</p>
               </NavLink>
             </li>
-            <li className='SideBar__item'>
+            <li>
+              <NavLink className='SideBar__item' to="/news" activeStyle={{color: '#109CF1'}}>
               <SvgChat color={(window.location.pathname === '/news') ? '#109CF1' : null}
                        style={{'width': '20px', 'height': '20px'}}/>
-              <NavLink className='over SideBar__description' to="/news" activeStyle={{color: '#109CF1'}}>
-                Новости
+
+                <p className='over SideBar__description'>Новости</p>
               </NavLink>
             </li>
-            <li className='SideBar__item'>
+            <li>
+              <NavLink className='SideBar__item' to="/subscribe" activeStyle={{color: '#109CF1'}}>
               <SvgDeals color={(window.location.pathname === '/subscribe') ? '#109CF1' : null}
                         style={{'width': '20px', 'height': '20px'}}/>
-              <NavLink className='over SideBar__description' to="/subscribe" activeStyle={{color: '#109CF1'}}>
-                Рассылка
+                <p className='over SideBar__description'>Рассылка</p>
               </NavLink>
             </li>
           </ul>

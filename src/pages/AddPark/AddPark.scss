@@ -1,16 +1,61 @@
 .AddPark {
-  position: relative;
-  text-align: center;
   display: flex;
+  text-align: center;
 
-  align-items: flex-start;
+  align-items: center;
+  justify-content: center;
   max-width: 1440px;
   width: 100%;
   min-height: 100vh;
-  background: #E5E5E5;
+
+  h2 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 24px;
+    /* identical to box height */
+
+    letter-spacing: 0.01em;
+    color: #334D6E;
+
+    margin-bottom: 7px;
+  }
+
+  h3 {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 19px;
+    letter-spacing: 0.01em;
+
+    color: #334D6E;
+  }
+
+  p {
+    font-family: Lato;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 17px;
+    text-align: center;
+    letter-spacing: 0.01em;
+
+    color: #757576;
+
+    &.error-text {
+      margin: 10px;
+      color: red;
+    }
+  }
+
 
   &__main {
     padding: 100px 20px 50px;
+  }
 
+  .yandex-map {
+    width: 756px;
   }
 }

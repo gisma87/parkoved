@@ -6,26 +6,26 @@ import AddPark from "./pages/AddPark/AddPark";
 import './App.css'
 
 function App() {
-  const [token, setToken] = useState('')
-  const [cards, setCards] = useState([])
+  // const [token, setToken] = useState('')
+  // const [cards, setCards] = useState([])
 
-  const apiGet = async () => {
-    return await fetch(
-      'http://localhost:3000/api/park-objects?status=OPEN&status=CLOSE&status=RENT',
-      {
-        method: 'GET',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'application/json'
-        }
-      })
-      .then(res => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Что-то пошло не так: ${res.status}`);
-      })
-  }
+  // const apiGet = async () => {
+  //   return await fetch(
+  //     'http://localhost:3000/api/park-objects?status=OPEN&status=CLOSE&status=RENT',
+  //     {
+  //       method: 'GET',
+  //       headers: {
+  //         Authorization: `Bearer ${token}`,
+  //         'Content-Type': 'application/json'
+  //       }
+  //     })
+  //     .then(res => {
+  //       if (res.ok) {
+  //         return res.json();
+  //       }
+  //       return Promise.reject(`Что-то пошло не так: ${res.status}`);
+  //     })
+  // }
 
   const apiPost = async () => {
     return (
@@ -54,19 +54,20 @@ function App() {
   useEffect(() => {
     (async () => {
       const response = await apiPost();
-      if (response.token)
-        setToken(response.token)
+      if (response.token) {
+        window.localStorage.setItem('TOKEN', response.token)
+      }
     })();
   }, []);
 
-  useEffect(() => {
-    (async () => {
-      if (token) {
-        const response = await apiGet();
-        console.log(response)
-      }
-    })();
-  }, [token]);
+  // useEffect(() => {
+  //   (async () => {
+  //     if (token) {
+  //       const response = await apiGet();
+  //       console.log(response)
+  //     }
+  //   })();
+  // }, [token]);
 
   return (
     <div className='App'>
@@ -74,7 +75,6 @@ function App() {
         <Switch>
           <Route path="/park-objects" component={ParkObjects} />
           <Route path="/add-park" component={AddPark} />
-          <Route path="/" component={ParkObjects} />
         </Switch>
       </BrowserRouter>
     </div>

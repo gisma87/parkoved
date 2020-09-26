@@ -1,0 +1,14 @@
+.Paper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  align-items: center;
+  background-color: #FFF;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
+  border-radius: 5px;
+  padding: 34px;
+
+  &-center {
+    justify-content: center;
+  }
+}
