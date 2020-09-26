@@ -1,18 +1,18 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import Desktop1 from "./pages/Desktop1/Desktop1";
 import './App.css'
 
 function App() {
-  const [TOKEN, setToken] = useState('')
+  const [token, setToken] = useState('')
   const [cards, setCards] = useState([])
 
-  async function apiGet() {
+  const apiGet = async () => {
     return await fetch(
       'http://localhost:3000/api/park-objects?status=OPEN&status=CLOSE&status=RENT',
       {
         method: 'GET',
         headers: {
-          Authorization: `Bearer ${TOKEN}`,
+          Authorization: `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       })
@@ -24,10 +24,9 @@ function App() {
       })
   }
 
-
-  async function apiPost() {
+  const apiPost = async () => {
     return (
-      await fetch('http://localhost:3000/api/login? HTTP/1.1', {
+      await fetch('http://localhost:3000/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -49,16 +48,22 @@ function App() {
     )
   }
 
+  useEffect(() => {
+    (async () => {
+      const response = await apiPost();
+      if (response.token)
+        setToken(response.token)
+    })();
+  }, []);
 
-  apiPost().then(json => {
-    setToken(json.token)
-  })
-    .catch(err => console.log(`Ошибка: ${err}`))
-
-
-  apiGet().then(json => console.log(json))
-    .catch(err => console.log(`Ошибка: ${err}`))
-
+  useEffect(() => {
+    (async () => {
+      if (token) {
+        const response = await apiGet();
+        console.log(response)
+      }
+    })();
+  }, [token]);
 
   return (
     <div className='App'>
