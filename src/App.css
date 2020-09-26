@@ -6,6 +6,30 @@
     box-sizing: border-box;
 }
 
+body, div, dl, dt, dd, ul, ol, li, nav, h1, h2, h3, h4, h5, h6, pre, code, form, fieldset, legend, input, button, textarea, p, blockquote, th, td, a {
+    margin: 0px;
+    padding: 0px;
+    border-width: 0px;
+    border-style: solid;
+    border-color: transparent;
+    transform-origin: left top;
+    background-repeat: no-repeat;
+    outline: none !important;
+    color: #000000;
+    font-family: regular, serif;
+}
+
+a {
+    -webkit-tap-highlight-color: transparent;
+    text-decoration: none;
+}
+
+a:hover, a:active {
+    text-decoration: none !important;
+    transition: all .5s;
+    color: #97c5d4;
+}
+
 .App {
     display: flex;
     flex-direction: column;

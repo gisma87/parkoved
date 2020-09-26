@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import ParkObjects from "./pages/ParkObjects/ParkObjects";
+import AddPark from "./pages/AddPark/AddPark";
 import './App.css'
 
 function App() {
@@ -72,7 +73,8 @@ function App() {
       <BrowserRouter basename="/">
         <Switch>
           <Route path="/park-objects" component={ParkObjects} />
-          <Route path="/add-park" component={ParkObjects} />
+          <Route path="/add-park" component={AddPark} />
+          <Route path="/" component={ParkObjects} />
         </Switch>
       </BrowserRouter>
     </div>

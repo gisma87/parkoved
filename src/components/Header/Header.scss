@@ -29,4 +29,12 @@
     padding: 13px 14px;
     color: #FFF;
   }
+
+  &__button:hover {
+    box-shadow: 0 0 0 2px #D2973D inset, 0 0 0 4px white inset;
+  }
+  &__button:active {
+    transform: translate(2px, 2px) scale(0.99);
+    transition: all .2s
+  }
 }
