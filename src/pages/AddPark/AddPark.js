@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './AddPark.scss'
 import Paper from "../../components/Paper/Paper";
 import TextField from '@material-ui/core/TextField';
@@ -67,6 +67,12 @@ function AddPark({ history }) {
   const [lon, setLon] = useState(55.684758);
   const [lat, setLat] = useState(37.738521);
   
+  useEffect(() => {
+    const park = window.localStorage.getItem('PARK');
+    if (park)
+      history.push('/park-objects');
+  }, []);
+
 
   const onDrop = (picture) => {
     setPictures(pictures.concat(picture));
@@ -87,8 +93,10 @@ function AddPark({ history }) {
         }
       });
   
-      if (response.park)
+      if (response.park) {
+        window.localStorage.setItem('PARK', response.park._id)
         history.push('/park-objects');
+      }
     } catch (error) {
       setError(error)
     }
