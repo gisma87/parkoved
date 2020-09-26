@@ -3,6 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
+    "@material/floating-label": "^7.0.0",
+    "@material/line-ripple": "^7.0.0",
+    "@material/notched-outline": "^7.0.0",
+    "@material/textfield": "^7.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
@@ -10,8 +16,10 @@
     "react": "^16.13.1",
     "react-axios": "^2.0.3",
     "react-dom": "^16.13.1",
+    "react-images-upload": "^1.2.8",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
+    "react-yandex-maps": "^4.4.0",
     "shards-react": "^1.0.3"
   },
   "scripts": {
