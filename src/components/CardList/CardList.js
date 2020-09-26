@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import './CardList.scss';
 import Card from "../Card/Card";
 
@@ -9,8 +9,8 @@ const CardList = ({title, cards}) => {
       <div className='CardList__container'>
         {
           cards.map((card, i) => {
-            return (<div className='CardList__card' key={i}>
-              <Card img={card.img} title={card.title} />
+            return (<div className={`CardList__card CardList__${card.status}`} key={i}>
+              <Card img={card.img} title={card.title} className={card.status} />
             </div>)
           })
         }
