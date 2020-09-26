@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 
 import ParkObjects from "./pages/ParkObjects/ParkObjects";
+import ParkEvents from "./pages/ParkEvents/ParkEvents";
 import AddPark from "./pages/AddPark/AddPark";
 import AddObject from "./pages/AddObject/AddObject";
+import AddEvent from "./pages/AddEvent/AddEvent";
 import InitPage from "./pages/InitPage/InitPage";
 import './App.css'
 
@@ -42,10 +44,14 @@ function App() {
     <div className='App'>
       <BrowserRouter basename="/">
         <Switch>
-          <Route path="/park-objects" component={ParkObjects} />
           <Route path="/add-park" component={AddPark} />
+          <Route path="/park-objects" component={ParkObjects} />
           <Route path="/add-object" component={AddObject} />
           <Route path="/edit-object/:id" component={AddObject} />
+          <Route path="/park-events" component={ParkEvents} />
+          <Route path="/add-event" component={AddEvent} />
+          <Route path="/edit-event/:id" component={AddEvent} />
+
           <Route path="/" component={InitPage} />
         </Switch>
       </BrowserRouter>

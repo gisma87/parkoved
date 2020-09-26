@@ -78,19 +78,11 @@ const SideBar = () => {
           </li>
 
           <li>
-            <NavLink className='SideBar__item' to="/statistics" activeStyle={{color: '#109CF1'}}>
-            <SvgStatistics color={(window.location.pathname === '/statistics') ? '#109CF1' : null}
+            <NavLink className='SideBar__item' to="/park-events" activeStyle={{color: '#109CF1'}}>
+            <SvgStatistics color={(window.location.pathname === '/park-events') ? '#109CF1' : null}
                             style={{'width': '20px', 'height': '20px'}}/>
 
-              <p className='over SideBar__description'>Статистика</p>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className='SideBar__item' to="/shares" activeStyle={{color: '#109CF1'}}>
-            <SvgContacts color={(window.location.pathname === '/shares') ? '#109CF1' : null}
-                          style={{'width': '20px', 'height': '20px'}}/>
-
-              <p className='over SideBar__description'>Акции</p>
+              <p className='over SideBar__description'>События</p>
             </NavLink>
           </li>
           <li>
@@ -99,13 +91,6 @@ const SideBar = () => {
                       style={{'width': '20px', 'height': '20px'}}/>
 
               <p className='over SideBar__description'>Новости</p>
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className='SideBar__item' to="/subscribe" activeStyle={{color: '#109CF1'}}>
-            <SvgDeals color={(window.location.pathname === '/subscribe') ? '#109CF1' : null}
-                      style={{'width': '20px', 'height': '20px'}}/>
-              <p className='over SideBar__description'>Рассылка</p>
             </NavLink>
           </li>
         </ul>

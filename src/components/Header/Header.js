@@ -6,7 +6,12 @@ class Header extends React.Component {
     return (
       <div className='Header'>
         <p className='Header__logo'>PARKOVED</p>
-        <a href="/add-object" className='Header__button' >Добавить объект</a>
+
+        {window.location.pathname === '/park-objects' ? (
+          <a href="/add-object" className='Header__button'>Добавить объект</a>
+        ) : window.location.pathname === '/park-events' ? (
+          <a href="/add-event" className='Header__button'>Добавить событие</a>
+        ) : null}
       </div>
     )
   }
