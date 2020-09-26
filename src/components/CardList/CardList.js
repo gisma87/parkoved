@@ -1,5 +1,6 @@
 import React from "react";
-import './CardList.scss'
+import './CardList.scss';
+import Card from "../Card/Card";
 
 const CardList = ({title, cards}) => {
   return (
@@ -8,7 +9,9 @@ const CardList = ({title, cards}) => {
       <div className='CardList__container'>
         {
           cards.map((card, i) => {
-            return (<div className='CardList__card' key={i}>{card}</div>)
+            return (<div className='CardList__card' key={i}>
+              <Card img={card.img} title={card.title} />
+            </div>)
           })
         }
       </div>
