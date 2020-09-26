@@ -1,0 +1,31 @@
+.Header {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 30px;
+  max-width: 1440px;
+  width: 100%;
+  min-height: 60px;
+  border-bottom: 1px solid lightgrey;
+  z-index: 3;
+
+  &__logo {
+    font-family: Poppins, serif;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 18px;
+    line-height: 27px;
+    color: #109CF1;
+    margin: 0
+  }
+
+  &__button {
+    background: #109CF1;
+    padding: 13px 14px;
+    color: #FFF;
+  }
+}
