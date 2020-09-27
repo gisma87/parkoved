@@ -44,7 +44,7 @@ const getBase64 = async (file) => {
 const sendNewsPost = async (body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch('http://localhost:3000/api/news', {
+  return await fetch('/api/news', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -65,7 +65,7 @@ const sendNewsPost = async (body) => {
 const sendNewsPut = async (id, body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/news/${id}`, {
+  return await fetch(`/api/news/${id}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -87,7 +87,7 @@ const sendNewsPut = async (id, body) => {
 const sendNewsGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/news/${id}`, {
+  return await fetch(`/api/news/${id}`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,

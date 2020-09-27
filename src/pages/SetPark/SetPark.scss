@@ -1,17 +1,12 @@
-.AddObject {
+.AddPark {
   display: flex;
+  text-align: center;
 
+  align-items: center;
+  justify-content: center;
+  max-width: 1440px;
   width: 100%;
   min-height: 100vh;
-
-  .row {
-    display: flex;
-    flex-direction: row;
-
-    & > div {
-      margin: 10px;
-    }
-  }
 
   h2 {
     font-family: Lato;
@@ -57,7 +52,6 @@
 
 
   &__main {
-    width: 100%;
     padding: 100px 20px 50px;
   }
 

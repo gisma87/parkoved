@@ -5,6 +5,7 @@ import ParkObjects from "./pages/ParkObjects/ParkObjects";
 import ParkEvents from "./pages/ParkEvents/ParkEvents";
 import News from "./pages/News/News";
 import AddPark from "./pages/AddPark/AddPark";
+import SetPark from "./pages/SetPark/SetPark";
 import AddObject from "./pages/AddObject/AddObject";
 import AddEvent from "./pages/AddEvent/AddEvent";
 import AddNews from "./pages/AddNews/AddNews";
@@ -47,6 +48,9 @@ function App() {
       <BrowserRouter basename="/">
         <Switch>
           <Route path="/add-park" component={AddPark} />
+          <Route path="/set-park/:id" component={SetPark} />
+          <Route path="/edit-park/:id" component={AddPark} />
+
           <Route path="/park-objects" component={ParkObjects} />
           <Route path="/add-object" component={AddObject} />
           <Route path="/edit-object/:id" component={AddObject} />

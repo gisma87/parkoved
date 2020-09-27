@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 function InitPage({ history }) {
   const apiPost = async () => {
     return (
-      await fetch('http://localhost:3000/api/login', {
+      await fetch('/api/login', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

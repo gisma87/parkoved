@@ -6,8 +6,9 @@ import CardNewsList from "../../components/CardNewsList/CardNewsList";
 
 const sendNewsGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
+  const PARK = window.localStorage.getItem('PARK');
   
-  return await fetch(`http://localhost:3000/api/news`, {
+  return await fetch(`/api/news?park=${PARK}`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,

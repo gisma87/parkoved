@@ -6,6 +6,9 @@ import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import ImageUploader from 'react-images-upload';
 import { YMaps, Map, Placemark } from 'react-yandex-maps';
+import {
+  useParams
+} from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -39,7 +42,7 @@ const getBase64 = async (file) => {
 const sendPost = async (body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
 
-  return await fetch('http://localhost:3000/api/parks', {
+  return await fetch('/api/parks', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -57,7 +60,49 @@ const sendPost = async (body) => {
     });
 }
 
+const sendPut = async (id, body) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+
+  return await fetch(`/api/parks/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+    .catch((err) => {
+      return Promise.reject(err);
+    });
+}
+
+const sendGet = async (id) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`/api/parks/${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
 function AddPark({ history }) {
+  const { id } = useParams();
   const classes = useStyles();
 
   const [pictures, setPictures] = useState([]);
@@ -69,9 +114,26 @@ function AddPark({ history }) {
   
   useEffect(() => {
     const park = window.localStorage.getItem('PARK');
-    if (park)
+    if (!id && park)
       history.push('/park-objects');
-  }, [history]);
+  }, [history, id]);
+
+  useEffect(() => {
+    (async () => {
+      if (id) {
+        const response = await sendGet(id);
+
+        if (response.park) {
+          setTitle(response.park.title);
+          setDescription(response.park.description);
+          if (response.park.place && response.park.place.longitude)
+            setLon(response.park.place.longitude);
+          if (response.park.place && response.park.place.latitude)
+            setLat(response.park.place.latitude);
+        }
+      }
+    })();
+  }, [id])
 
 
   const onDrop = (picture) => {
@@ -80,7 +142,7 @@ function AddPark({ history }) {
 
   const onClick = async () => {
     try {
-      const response = await sendPost({
+      const data = {
         title,
         description,
         photos: await Promise.all(pictures.map(async (picture, i) => ({
@@ -91,7 +153,15 @@ function AddPark({ history }) {
           longitude: lon,
           latitude: lat
         }
-      });
+      }
+
+      let response;
+      if (id) {
+        response = await sendPut(id, data);
+      }
+      else {
+        response = await sendPost(data);
+      }
   
       if (response.park) {
         window.localStorage.setItem('PARK', response.park._id)
@@ -105,8 +175,8 @@ function AddPark({ history }) {
   return (
     <div className='AddPark'>
       <div className='AddPark__main'>
-        <h2>Добавьте свой парк</h2>
-        <p>Заполните все поля и нажмите продолжить. Система создаст страницу вашего<br />парка и вы сможете добавить объекты и события.</p>
+        <h2>{id ? 'Редактировать парк' : 'Добавьте свой парк'}</h2>
+        {!id && <p>Заполните все поля и нажмите продолжить. Система создаст страницу вашего<br />парка и вы сможете добавить объекты и события.</p>}
         <br />
         <Paper align="center">
           <h3>Общая информация</h3>
@@ -143,7 +213,7 @@ function AddPark({ history }) {
             </YMaps>
             <br />
             <Button variant="outlined" color="primary" onClick={onClick}>
-              Добавить парк
+              {id ? 'Редактировать парк' : 'Добавить парк'}
             </Button>
             {!!error && <p className="error-text">{error}</p>}
           </form>

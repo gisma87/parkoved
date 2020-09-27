@@ -6,8 +6,9 @@ import CardEventList from "../../components/CardEventList/CardEventList";
 
 const sendEventsGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
+  const PARK = window.localStorage.getItem('PARK');
   
-  return await fetch(`http://localhost:3000/api/park-events`, {
+  return await fetch(`/api/park-events?park=${PARK}`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -35,8 +36,6 @@ function ParkEvents() {
         setEvents(response.parkEvents)
     })()
   }, [])
-
-console.log(events)
 
   return (
     <div className='ParkEvents'>

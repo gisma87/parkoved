@@ -8,7 +8,7 @@ import CardList from "../../components/CardList/CardList";
 const sendObjectTypesGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/park-objects/types`, {
+  return await fetch(`/api/park-objects/types`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -27,8 +27,9 @@ const sendObjectTypesGet = async (id) => {
 
 const sendObjectsGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
+  const PARK = window.localStorage.getItem('PARK');
   
-  return await fetch(`http://localhost:3000/api/park-objects`, {
+  return await fetch(`/api/park-objects?park=${PARK}`, {
     method: 'GET',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,

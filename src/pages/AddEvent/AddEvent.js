@@ -51,7 +51,7 @@ const getBase64 = async (file) => {
 const sendEventPost = async (body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch('http://localhost:3000/api/park-events', {
+  return await fetch('/api/park-events', {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -72,7 +72,7 @@ const sendEventPost = async (body) => {
 const sendEventPut = async (id, body) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/park-events/${id}`, {
+  return await fetch(`/api/park-events/${id}`, {
     method: 'PUT',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
@@ -94,8 +94,91 @@ const sendEventPut = async (id, body) => {
 const sendEventGet = async (id) => {
   const TOKEN = window.localStorage.getItem('TOKEN');
   
-  return await fetch(`http://localhost:3000/api/park-events/${id}`, {
+  return await fetch(`/api/park-events/${id}`, {
     method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
+
+const sendPaymentTargetPost = async (body) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch('/api/payment-targets', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
+const sendPaymentTargetPut = async (id, body) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`/api/payment-targets/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(body)
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
+const sendPaymentTargetsGet = async (id) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`/api/payment-targets/?parkEvent=${id}`, {
+    method: 'GET',
+    headers: {
+      'Authorization': `Bearer ${TOKEN}`,
+      'Content-Type': 'application/json'
+    },
+  }).then(res => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    return Promise.reject(err);
+  });
+}
+
+const sendPaymentTargetDelete = async (id) => {
+  const TOKEN = window.localStorage.getItem('TOKEN');
+  
+  return await fetch(`/api/payment-targets/${id}`, {
+    method: 'DELETE',
     headers: {
       'Authorization': `Bearer ${TOKEN}`,
       'Content-Type': 'application/json'
@@ -135,6 +218,10 @@ function AddEvent({ history }) {
 
           if (response.parkEvent.finish)
             setFinish(moment(response.parkEvent.finish));
+
+          const { paymentTargets } = await sendPaymentTargetsGet(response.parkEvent._id)
+          if (paymentTargets && paymentTargets.length > 0)
+            setPayments(paymentTargets)
         }
       }
     })();
@@ -178,6 +265,25 @@ function AddEvent({ history }) {
       }
       else {
         response = await sendEventPost(data);
+      }
+
+      if (response.parkEvent && payments.length > 0) {
+        await Promise.all(payments.map(async payment => {
+          if (payment._id && payment.title && payment.price)
+            await sendPaymentTargetPut(payment._id, {
+              ...payment,
+              park: response.parkEvent.park,
+              parkEvent: response.parkEvent._id,
+            })
+          else if (payment._id && (!payment.title || !payment.price))
+            await sendPaymentTargetDelete(payment._id)
+          else if (!payment._id && payment.title && payment.price)
+            await sendPaymentTargetPost({
+              ...payment,
+              park: response.parkEvent.park,
+              parkEvent: response.parkEvent._id,
+            })
+        }))
       }
   
       if (response.parkEvent)
@@ -223,7 +329,7 @@ function AddEvent({ history }) {
                   id="standard-adornment-weight"
                   value={age}
                   onChange={onAgeChange}
-                  endAdornment={<InputAdornment position="end">см</InputAdornment>}
+                  endAdornment={<InputAdornment position="end">лет</InputAdornment>}
                   aria-describedby="standard-age-helper-text"
                   inputProps={{
                     'aria-label': 'age',

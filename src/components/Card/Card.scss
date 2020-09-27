@@ -1,6 +1,6 @@
 .Card {
   width: 350px;
-  height: 130px;
+  min-height: 172px;
   display: flex;
   align-items: flex-start;
   box-shadow: 2px 0 10px rgba(0, 0, 0, 0.08);
@@ -62,11 +62,24 @@
       color: #FFF;
     }
   }
-  .close{
+
+  &__payments {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 10px;
+
+    &_link {
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .CLOSE{
     background: #F7685B;
     border-radius: 4px;
   }
-  .repairs {
+  .RENT {
     background: #FFB946;
     border-radius: 4px;
   }
